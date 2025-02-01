@@ -34,7 +34,17 @@ Ensure Docker is installed. Get it [here](https://docs.docker.com/get-docker/).
 
 ### Vector Store Initialization
 
-At the start of the service, the vector store for Philosophy is created using the Wikipedia data and is stored in a Chroma vector store. This vector store will persist across requests, allowing the API to quickly retrieve the most relevant information for any given query.
+At the start of the service, the vector store for Philosophy is created using the Wikipedia data and is stored in a Chroma vector store. The vectors of the documents are stored in a folder named `db` within the container, specifically in the `db/chroma` directory. These vector store will persist across requests, allowing the API to quickly retrieve the most relevant information for any given query.
+
+#### Accessing the Vector Store Inside the Docker Container
+
+1. Access the container
+    ```bash
+    docker exec -it rag-api-container /bin/bash
+
+2. Navigate to the db/chroma directory
+    ```bash
+    cd db/chroma
 
 
 ### Test the API
@@ -53,3 +63,13 @@ URL (`http://localhost:8000/docs`) to access FastAPI's interactive Swagger UI fo
 ### Logs
 
 Log files are stored in the `logs` folder, which they can monitor for activity and debugging. These logs are generated during service runtime, capturing request and error details. To view the logs, you can access them from within the container while it is running.
+
+#### Accessing the Logs Inside the Docker Container
+
+1. Access the container:
+    ```bash
+    docker exec -it <container_name_or_id> /bin/bash
+
+2. Navigate to the db/chroma directory:
+    ```bash
+    cd logs
