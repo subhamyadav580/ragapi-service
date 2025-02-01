@@ -68,7 +68,7 @@ Log files are stored in the `logs` folder, which they can monitor for activity a
 
 1. Access the container:
     ```bash
-    docker exec -it <container_name_or_id> /bin/bash
+    docker exec -it rag-api-container /bin/bash
 
 2. Navigate to the db/chroma directory:
     ```bash
