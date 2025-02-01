@@ -1,5 +1,5 @@
 class Config:
-    MODEL_NAME = "sentence-transformers/all-mpnet-base-v2"
+    MODEL_NAME = "mistral"
     CHUNK_SIZE = 1000
     CHUNK_OVERLAP = 200
     WEB_PATH = "https://en.wikipedia.org/wiki/Philosophy"

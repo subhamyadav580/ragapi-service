@@ -30,5 +30,5 @@ EXPOSE 8000
 
 # Run FastAPI app
 # CMD ["uvicorn", "main:app", "--host", "0.0.0.0", "--port", "8000"]
-CMD ["sh", "-c", "ollama serve & sleep 10 && export OLLAMA_NUM_PARALLEL=1 && uvicorn main:app --host 0.0.0.0 --port 8000"]
+CMD ["sh", "-c", "ollama serve & sleep 10 && uvicorn main:app --host 0.0.0.0 --port 8000"]
 
