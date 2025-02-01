@@ -3,7 +3,6 @@ from vectorstore.retriever import RetrieverSingleton
 from models import QueryRequest, StreamingChunkResponse
 from logging_config import logger
 
-
 from langchain_core.output_parsers import StrOutputParser
 from langchain_core.runnables import RunnablePassthrough
 
@@ -12,12 +11,22 @@ from fastapi.responses import StreamingResponse
 import asyncio
 import json
 
+# Initialize LLM and embeddings
 llm = GetLLMModel()
 embeddings = GetEmbeddings()
 
+# Router for handling API requests
 router = APIRouter()
 
 async def generate_response(query: str, top_k: int):
+    """
+    Generates a response stream for a given query using RAG model.
+    Args:
+        query (str): The user query to be answered.
+        top_k (int): Number of relevant contexts to retrieve.
+    Yields:
+        StreamingChunkResponse: The streaming content with 'finished' flag for each chunk.
+    """
     try:
         retriever = RetrieverSingleton.get_retriever(top_k)
         rag_chain = (
@@ -41,7 +50,6 @@ async def generate_response(query: str, top_k: int):
         final_chunk = StreamingChunkResponse(content="", finished=True)
         yield f"data: {json.dumps(final_chunk.model_dump())}\n\n".encode('utf-8')
         logger.info("Chunk generation completed")
-
             
     except Exception as e:
         logger.error(f"Error in chunk generation: {str(e)}")
@@ -102,14 +110,15 @@ async def generate_response(query: str, top_k: int):
 )
 async def query_rag(request: QueryRequest) -> StreamingResponse:
     """
-    Query the RAG (Retrieval-Augmented Generation) model with an optional `top_k` parameter.
-    This endpoint returns a stream of results from the RAG model, where `top_k` specifies 
-    the number of relevant contexts to retrieve.
-
-    - `query`: The user's query for the RAG model.
-    - `top_k`: The optional parameter to limit the number of retrieved contexts. Default is 5.
+    Handles the user query and streams results from the RAG model.
+    
+    Args:
+        request (QueryRequest): User's `query` and `top_k` parameter.
+    
+    Returns:
+        StreamingResponse: Streamed chunks of context and answers from the RAG model.
     """
-    logger.info(f"Processing User Query: {request.query} and Top_k: {request.top_k}")
+    logger.info(f"Processing User Query: {request.query} with Top_k: {request.top_k}")
     return StreamingResponse(
         generate_response(request.query, request.top_k),
         media_type="text/event-stream",
@@ -119,4 +128,3 @@ async def query_rag(request: QueryRequest) -> StreamingResponse:
             'Content-Type': 'text/event-stream'
         }
     )
-
