@@ -1,0 +1,8 @@
+langchain-core
+langchain
+langchain-ollama
+langchain-community
+beautifulsoup4
+uvicorn
+fastapi
+chromadb
