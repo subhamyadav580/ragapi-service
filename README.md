@@ -31,6 +31,12 @@ Ensure Docker is installed. Get it [here](https://docs.docker.com/get-docker/).
     ```bash
     docker run -d -p 8000:8000 --name rag-api-container rag-api-service
 
+
+### Vector Store Initialization
+
+At the start of the service, the vector store for Philosophy is created using the Wikipedia data and is stored in a Chroma vector store. This vector store will persist across requests, allowing the API to quickly retrieve the most relevant information for any given query.
+
+
 ### Test the API
 ```
     curl --location 'http://127.0.0.1:8000/query' \
