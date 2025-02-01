@@ -4,7 +4,7 @@ This repository contains a **Streaming Retrieval-Augmented Generation (RAG)** AP
 
 ## Features
 
-- Real-time text generation from Wikipedia (Philosophy)
+- Real-time text generation from [Wikipedia (Philosophy)](https://en.wikipedia.org/wiki/Philosophy)
 - **TinyLlama** for RAG tasks
 - **FastAPI** & **Uvicorn** for API framework
 - **Ollama** for model execution
