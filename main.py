@@ -13,8 +13,8 @@ app.include_router(router=router, prefix="")
 
 @app.middleware("http")
 async def custom_middleware(request: Request, call_next):
-    logger.info(f"Start of the request: {request.base_url}")
+    logger.info(f"Start of the request: {request.url}")
     response = await call_next(request)
-    logger.info(f"End of the request: {request.base_url}")
+    logger.info(f"End of the request: {request.url}")
     logger.info(f"Response for url: {response}")
     return response
