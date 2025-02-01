@@ -44,3 +44,6 @@ Ensure Docker is installed. Get it [here](https://docs.docker.com/get-docker/).
 URL (`http://localhost:8000/docs`) to access FastAPI's interactive Swagger UI for testing and documentation.
 
 
+### Logs
+
+Log files are stored in the `logs` folder, which they can monitor for activity and debugging. These logs are generated during service runtime, capturing request and error details. To view the logs, you can access them from within the container while it is running.
