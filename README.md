@@ -32,10 +32,15 @@ Ensure Docker is installed. Get it [here](https://docs.docker.com/get-docker/).
     docker run -d -p 8000:8000 --name rag-api-container rag-api-service
 
 ### Test the API
-```bash 
-
+```
     curl --location 'http://127.0.0.1:8000/query' \
     --header 'Content-Type: application/json' \
     --data '{
         "query": "What is philosophy?"
     }'
+```
+
+### Swagger API Documentation
+URL (`http://localhost:8000/docs`) to access FastAPI's interactive Swagger UI for testing and documentation.
+
+
