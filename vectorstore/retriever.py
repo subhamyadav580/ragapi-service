@@ -65,7 +65,11 @@ class RetrieverSingleton:
                     vectorstore = Chroma(persist_directory=VECTOR_DB_PATH, embedding_function=embeddings)
                 else:
                     logger.error("Vector store does not exist.")
-                    raise FileNotFoundError("Chroma vector store not found.")
+                    # Load documents, split them, and create the vector store
+                    docs = load_documents()
+                    splits = split_documents(docs)[:10]  # Limit the number of documents for initial testing
+                    vectorstore = Chroma.from_documents(documents=splits, embedding=embeddings, persist_directory=VECTOR_DB_PATH)
+                    vectorstore.persist()
 
                 # Initialize the retriever with the desired number of top results
                 cls._retriever = vectorstore.as_retriever(k=top_k)

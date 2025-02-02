@@ -60,7 +60,7 @@ async def generate_response(query: str, top_k: int):
         yield f"data: {json.dumps(error_chunk.model_dump())}\n\n".encode('utf-8')
 
 
-@router.post("/query", response_class=StreamingResponse, responses={
+@router.post("/query", response_model=StreamingChunkResponse, response_class=StreamingResponse, responses={
         200: {
             "description": "Successful response with streaming content",
             "content": {
@@ -110,13 +110,13 @@ async def generate_response(query: str, top_k: int):
 )
 async def query_rag(request: QueryRequest) -> StreamingResponse:
     """
-    Handles the user query and streams results from the RAG model.
+    Handles the user query and streams results from the RAG Service.
     
     Args:
         request (QueryRequest): User's `query` and `top_k` parameter.
     
     Returns:
-        StreamingResponse: Streamed chunks of context and answers from the RAG model.
+        StreamingResponse: Streamed chunks of context and answers from the RAG Service.
     """
     logger.info(f"Processing User Query: {request.query} with Top_k: {request.top_k}")
     return StreamingResponse(
